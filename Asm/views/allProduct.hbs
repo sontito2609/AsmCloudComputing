@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>All Product</title>
+</head>
+
+<style>
+    body{
+    background-image: url(/image/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+} 
+</style>
+<body>
+    <h1 class="header">ATN COMPANY</h1> 
+    <h3 class="homepage"><a href="/">Home Page</a></h3>
+    <h3 class="adding"><a href="/add">New Product</a></h3>
+    <h3 class="searching">Search <form action="/search" method="POST">Name: <input type="text", name="nameSearch"> <input type="submit", value="search">
+    </form>
+    </h3>
+    <article class="article">
+        
+        <table width = "100%" border="1" style="color:black"class="list-group">
+            <tr>
+
+                <td>ID </td>
+                <td>NAME </td>
+                <td>CATEGORY </td>
+                <td>BRAND </td>
+                <td>PRICE</td>
+                <td>EDIT </td>
+                <td>DELETE </td>
+            </tr>
+            {{#each toy}}
+            <tr>
+                <td>{{_id}} </td>
+                <td>{{name}}</td>
+                <td>{{[category]}} </td>
+                <td>{{[brand]}}</td>
+                <td>{{[price]}}</td>
+                <td><a href="/edit?id={{_id}}">Edit</a> </td>
+                <td><a href="/delete?id={{_id}}">Delete</a></Td>
+            </tr>
+            {{/each}}
+        </table>
+    </article>
+    <h2 class="footer">COPYRIGHT@2020 by ATN COMPANY</h2>
+</body>
+</html>
