@@ -18,14 +18,17 @@ router.post('/add', async (req,res)=> {
     let inputCategory = req.body.toyCategory;
     let inputBrand = req.body.toyBrand;
     let inputPrice = req.body.toyPrice;
-
     let newToy = { name : inputName, category : inputCategory, brand : inputBrand, price : inputPrice};
     let client = await MongoClient.connect(url);
     let dbo = client.db("Store");
-    await dbo.collection("Product").insertOne(newToy);
-    
-    let result = await dbo.collection("Product").find({}).toArray();
-    res.render('allProduct', { toy: result });
+
+    if (isNaN(inputPrice)) {
+        let errorModel = { errorMsg: "The price must be a number !!!" };
+        res.render("addToy", { toy: errorModel });
+    } else {
+        await dbo.collection("Product").insertOne(newToy);
+        res.redirect("/");
+    }
 })
 // Delete a toy
 router.get("/delete", async (req,res) => {
@@ -34,9 +37,7 @@ router.get("/delete", async (req,res) => {
     let client = await MongoClient.connect(url);
     let dbo = client.db("Store");
     await dbo.collection("Product").deleteOne({_id:ObjectID(id)});
-
-    let result = await dbo.collection("Product").find({}).toArray();
-    res.render('allProduct', { toy: result });
+    res.redirect('/');
 })
 // Search a toy
 router.get('/search', (req, res) => {
